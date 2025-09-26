@@ -1,0 +1,50 @@
+[tool.poetry]
+name = "leekbot"
+version = "0.1.0"
+description = "Multi-asset trading platform for the L.E.E.K. server"
+authors = ["LeekBot Contributors <support@example.com>"]
+readme = "README.md"
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.110.0"
+uvicorn = {extras = ["standard"], version = "^0.29.0"}
+pydantic = "^2.6.1"
+httpx = "^0.27.0"
+pyyaml = "^6.0.1"
+structlog = "^24.1.0"
+rich = "^13.7.0"
+reportlab = "^4.0.9"
+python-dotenv = "^1.0.1"
+croniter = "^2.0.1"
+dataclasses-json = "^0.6.4"
+cachetools = "^5.3.3"
+pytz = "^2024.1"
+typer = "^0.9.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.1.1"
+pytest-asyncio = "^0.23.6"
+ruff = "^0.3.7"
+black = "^24.3.0"
+
+[build-system]
+requires = ["poetry-core>=1.5.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]
+
+[tool.ruff]
+line-length = 120
+exclude = ["structlog"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "ANN", "N", "ASYNC"]
+ignore = ["ANN101", "ANN102", "ANN401", "ANN001", "ANN002", "ANN003", "ANN201", "ANN204", "UP006", "UP035", "B008"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["leekbot"]
+

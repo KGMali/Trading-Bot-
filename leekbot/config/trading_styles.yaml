@@ -1,0 +1,155 @@
+{
+  "styles": [
+    {
+      "name": "capital_preservation_multi_asset",
+      "label": "Capital Preservation (Multi-Asset)",
+      "risk_score": 1,
+      "risk_level": "Conservative",
+      "description": "Focuses on wealth preservation with highly liquid ETFs, short-duration futures, and defensive option overlays.",
+      "holding_period": "swing-weeks",
+      "target_markets": ["equities", "etfs", "fx", "treasury_futures"],
+      "recommended_strategies": ["vwap_reversion", "vix_hedge_overlay"],
+      "position_sizing": {
+        "risk_per_trade_pct": 0.25,
+        "max_concurrent_positions": 4,
+        "leverage": 1.0
+      },
+      "risk_controls": {
+        "max_daily_loss_pct": 0.8,
+        "max_intraday_drawdown_pct": 1.2,
+        "kill_switch_enabled": true
+      },
+      "notes": "Ideal for capital preservation mandates that still want tactical hedges and low-volatility carry."
+    },
+    {
+      "name": "income_rotation_etf",
+      "label": "Income Rotation (ETF & Covered Options)",
+      "risk_score": 2,
+      "risk_level": "Conservative-Moderate",
+      "description": "Seeks steady income via sector rotation ETFs, FX carry overlays, and conservative option writing.",
+      "holding_period": "swing-weeks",
+      "target_markets": ["equities", "etfs", "fx", "options"],
+      "recommended_strategies": ["pairs_stat_arb", "options_short_strangle", "vwap_reversion"],
+      "position_sizing": {
+        "risk_per_trade_pct": 0.5,
+        "max_concurrent_positions": 6,
+        "leverage": 1.5
+      },
+      "risk_controls": {
+        "max_daily_loss_pct": 1.0,
+        "max_positions": 8,
+        "allow_short_vol": false
+      },
+      "notes": "Combines ETF relative strength with covered spreads, keeping net delta neutral while harvesting carry."
+    },
+    {
+      "name": "balanced_swing_multi_market",
+      "label": "Balanced Swing (Equities, FX, Futures)",
+      "risk_score": 3,
+      "risk_level": "Moderate",
+      "description": "Blends equity momentum, FX trend, and micro future hedges for diversified swing exposure.",
+      "holding_period": "swing-days",
+      "target_markets": ["equities", "futures", "fx"],
+      "recommended_strategies": ["momentum_1m", "vwap_reversion", "vol_trend_vix"],
+      "position_sizing": {
+        "risk_per_trade_pct": 0.75,
+        "max_concurrent_positions": 8,
+        "leverage": 2.0
+      },
+      "risk_controls": {
+        "max_daily_loss_pct": 1.5,
+        "max_orders_per_min": 25,
+        "max_positions": 10
+      },
+      "notes": "Balances directional trades with VIX trend overlays to dampen drawdowns while pursuing growth."
+    },
+    {
+      "name": "global_macro_tactical",
+      "label": "Global Macro Tactical",
+      "risk_score": 4,
+      "risk_level": "Moderate-Aggressive",
+      "description": "Deploys cross-asset macro themes through FX, rates, commodities, and equity index futures.",
+      "holding_period": "swing-days",
+      "target_markets": ["fx", "futures", "equities", "volatility"],
+      "recommended_strategies": ["momentum_1m", "vol_trend_vix", "vix_hedge_overlay"],
+      "position_sizing": {
+        "risk_per_trade_pct": 1.0,
+        "max_concurrent_positions": 10,
+        "leverage": 2.5
+      },
+      "risk_controls": {
+        "max_daily_loss_pct": 2.0,
+        "contracts_per_symbol": 2,
+        "allow_short_vol": true
+      },
+      "notes": "Uses futures for capital efficiency while layering volatility overlays to manage tail risk."
+    },
+    {
+      "name": "intraday_precision_day_trading",
+      "label": "Intraday Precision (Day Trading)",
+      "risk_score": 5,
+      "risk_level": "Aggressive (Day Trading)",
+      "description": "High-frequency intraday trading across equities, crypto, and FX with strict trade-count limits and scheduled flattening.",
+      "holding_period": "intraday-minutes",
+      "target_markets": ["equities", "crypto", "fx"],
+      "recommended_strategies": ["momentum_1m", "orb_breakout", "breakout_volexp"],
+      "position_sizing": {
+        "risk_per_trade_pct": 0.35,
+        "max_concurrent_positions": 3,
+        "leverage": 3.0
+      },
+      "risk_controls": {
+        "max_daily_loss_pct": 1.8,
+        "max_intraday_drawdown_pct": 2.5,
+        "max_day_trades": 25,
+        "flatten_at_close": true,
+        "day_trade_close_time": "15:55",
+        "day_trade_timezone": "America/New_York"
+      },
+      "notes": "Optimized for PDT-compliant day trading desks with automated intraday kill switch and flattening."
+    },
+    {
+      "name": "volatility_alpha_overlay",
+      "label": "Volatility Alpha Overlay",
+      "risk_score": 6,
+      "risk_level": "Aggressive",
+      "description": "Targets volatility dislocations via VIX futures, vol ETPs, and crypto options greeks harvesting.",
+      "holding_period": "swing-days",
+      "target_markets": ["volatility", "options", "futures", "crypto"],
+      "recommended_strategies": ["vol_trend_vix", "vol_reversion_vix", "vix_hedge_overlay"],
+      "position_sizing": {
+        "risk_per_trade_pct": 1.25,
+        "max_concurrent_positions": 6,
+        "leverage": 2.0
+      },
+      "risk_controls": {
+        "max_daily_loss_pct": 2.2,
+        "hard_stop_pct": 4.5,
+        "allow_short_vol": false
+      },
+      "notes": "Pairs long-vol hedges with opportunistic short-vol spreads when skew favors premium capture."
+    },
+    {
+      "name": "opportunistic_hyperdrive",
+      "label": "Opportunistic Hyperdrive",
+      "risk_score": 7,
+      "risk_level": "Very Aggressive",
+      "description": "Seeks high-octane returns using crypto momentum, leveraged index futures, and tactical options.",
+      "holding_period": "intraday-hours",
+      "target_markets": ["crypto", "futures", "options"],
+      "recommended_strategies": ["breakout_volexp", "orb_breakout", "options_short_strangle"],
+      "position_sizing": {
+        "risk_per_trade_pct": 1.75,
+        "max_concurrent_positions": 5,
+        "leverage": 4.0
+      },
+      "risk_controls": {
+        "max_daily_loss_pct": 3.0,
+        "max_intraday_drawdown_pct": 4.0,
+        "max_orders_per_min": 45,
+        "allow_short_vol": true
+      },
+      "notes": "Reserved for experienced desks comfortable with rapid-fire execution and elevated drawdown tolerance."
+    }
+  ]
+}

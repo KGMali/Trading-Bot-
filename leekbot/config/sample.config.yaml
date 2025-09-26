@@ -1,0 +1,73 @@
+# Sample configuration for LeekBot
+global:
+  timezone: "America/Chicago"
+  mode: "paper"
+  data_poll_ms: 500
+  log_dir: "./logs"
+
+data:
+  equities:
+    provider: "polygon"
+    key: "${POLYGON_API_KEY}"
+    bar: "1m"
+  crypto:
+    provider: "exchange_ws"
+    venues: ["coinbase", "kraken"]
+  fx:
+    provider: "oanda_ws"
+  options:
+    provider: "deribit"
+
+accounts:
+  - name: "eq_live"
+    venue: "alpaca"
+    base_ccy: "USD"
+    symbols: ["SPY", "QQQ", "AAPL", "MSFT"]
+    strategies: ["momentum_1m", "vwap_reversion", "orb_breakout"]
+    risk:
+      max_daily_loss_pct: 2.0
+      max_pos_value_pct: 25.0
+      max_orders_per_min: 30
+      max_day_trades: 20
+      max_intraday_loss_pct: 1.5
+      flatten_at_close: true
+      day_trade_close_time: "15:55"
+      day_trade_timezone: "America/New_York"
+  - name: "crypto_live"
+    venue: "kraken"
+    base_ccy: "USD"
+    symbols: ["BTCUSD", "ETHUSD"]
+    strategies: ["breakout_volexp"]
+    risk:
+      max_daily_loss_pct: 3.0
+      max_positions: 5
+  - name: "fx_live"
+    venue: "oanda"
+    base_ccy: "USD"
+    symbols: ["EURUSD", "GBPUSD", "USDJPY"]
+    strategies: ["momentum_1m"]
+    risk:
+      max_daily_loss_pct: 2.0
+      max_leverage: 10
+  - name: "fut_live"
+    venue: "tradovate"
+    base_ccy: "USD"
+    symbols: ["MESU5", "MNQU5"]
+    strategies: ["momentum_1m"]
+    risk:
+      max_daily_loss_pct: 2.0
+      contracts_per_symbol: 1
+  - name: "vol_live"
+    venue: "ibkr"
+    base_ccy: "USD"
+    symbols: ["VX_F", "UVXY", "SVXY"]
+    strategies: ["vol_trend_vix", "vol_reversion_vix", "vix_hedge_overlay"]
+    risk:
+      max_daily_loss_pct: 1.0
+      hard_stop_pct: 5.0
+      allow_short_vol: false
+calendars:
+  equities: "XNYS"
+  futures: "CME"
+  fx: "FX"
+  crypto: "CRYPTO"
