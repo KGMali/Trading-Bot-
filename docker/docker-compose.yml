@@ -1,0 +1,36 @@
+version: "3.9"
+services:
+  api:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    command: uvicorn leekbot.api.app:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    env_file:
+      - ../.env
+    volumes:
+      - ..:/app
+  worker:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    command: python -m leekbot.cli run --mode paper --config leekbot/config/sample.config.yaml
+    env_file:
+      - ../.env
+    volumes:
+      - ..:/app
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: leek
+      POSTGRES_PASSWORD: leek
+      POSTGRES_DB: leek
+    ports:
+      - "5432:5432"
+  grafana:
+    image: grafana/grafana:10.2.3
+    ports:
+      - "3000:3000"
+    environment:
+      GF_SECURITY_ADMIN_PASSWORD: leekbot
